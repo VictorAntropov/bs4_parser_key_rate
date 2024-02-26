@@ -1,2 +1,0 @@
-from prettytable import PrettyTable
-
