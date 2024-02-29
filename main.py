@@ -5,23 +5,22 @@ import schedule
 from bs4 import BeautifulSoup
 from pathlib import Path
 import datetime as dt
-from src import constants as const
+from src.constants import UTF
 
 
 BASE_DIR = Path(__file__).parent
-# DATETIME_FORMAT = '%Y-%m-%d'
-# now = dt.datetime.now()
-# FORMAT_TIME = now.strftime(DATETIME_FORMAT)
-# UTF = 'utf-8'
-
+DATETIME_FORMAT = '%Y-%m-%d'
+now = dt.datetime.now()
+FORMAT_TIME = now.strftime(DATETIME_FORMAT)
+UTF = 'utf-8'
 bot = telebot.TeleBot(token='5865043978:AAEawcnDACERjDdwuOQ9ovlq69hiPxHdhdY')
 
 
 def csv_output(result_list):
-    dir = const.BASE_DIR / 'results'
+    dir = BASE_DIR / 'results'
     file_path = dir / '2024-02-26.csv'
 
-    with open(file_path, 'a', encoding=const.UTF) as csvfile:
+    with open(file_path, 'a', encoding=UTF) as csvfile:
         writer = csv.writer(csvfile, dialect='unix')
         writer.writerow(result_list)
 
@@ -38,8 +37,7 @@ def parser_the_bank():
     result_value = [(item.text.strip()) for item in value]
 
     result = percent_value + result_value[1::2]
-    
-    result.insert(0, const.FORMAT_TIME)
+    result.insert(0, FORMAT_TIME)
 
     return csv_output(result)
 
