@@ -3,33 +3,26 @@ import csv
 import telebot
 import schedule
 from bs4 import BeautifulSoup
-from pathlib import Path
-import datetime as dt
-from src.constants import UTF
+from constant import (UTF, FORMAT_TIME, UNIX, BASE_DIR, URL_CB, LXML)
+from utils import get_response
 
 
-BASE_DIR = Path(__file__).parent
-DATETIME_FORMAT = '%Y-%m-%d'
-now = dt.datetime.now()
-FORMAT_TIME = now.strftime(DATETIME_FORMAT)
-UTF = 'utf-8'
 bot = telebot.TeleBot(token='5865043978:AAEawcnDACERjDdwuOQ9ovlq69hiPxHdhdY')
 
 
 def csv_output(result_list):
-    dir = BASE_DIR / 'results'
-    file_path = dir / '2024-02-26.csv'
+    dir = BASE_DIR
 
-    with open(file_path, 'a', encoding=UTF) as csvfile:
-        writer = csv.writer(csvfile, dialect='unix')
+    with open(dir, 'a', encoding=UTF) as csvfile:
+        writer = csv.writer(csvfile, dialect=UNIX)
         writer.writerow(result_list)
 
-    send_telegram_message(file_path)
+    send_telegram_message(dir)
 
 
 def parser_the_bank():
-    response = requests.get('https://cbr.ru/')
-    soup = BeautifulSoup(response.text, features='lxml')
+    response = requests.get(URL_CB)
+    soup = BeautifulSoup(response.text, features=LXML)
     div_tag = soup.find('div', attrs={'class': 'home-main_aside'})
     percent_value = div_tag.find_all('div', class_='main-indicator_value')
     value = div_tag.find_all('div', attrs={'class': 'col-md-2 col-xs-9 _right mono-num'})
