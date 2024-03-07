@@ -1,16 +1,18 @@
 import csv
+from typing import List
 
 import telebot
 # import schedule
 from bs4 import BeautifulSoup
+
 from constant import BASE_DIR, FORMAT_TIME, MAIN_URL, UNIX, UTF, HTMLtag
+from settings import chat_id, token
 from utils import get_response
-from settings import token, chat_id
 
 bot = telebot.TeleBot(token=token)
 
 
-def csv_output(result_list):
+def csv_output(result_list: List[str]):
     'Запись в файл.'
     dir = BASE_DIR
 
@@ -19,9 +21,10 @@ def csv_output(result_list):
         writer.writerow(result_list)
 
     send_telegram_message(dir)
+    return 'Файл отправлен, работа парсера завершена!'
 
 
-def parser_the_bank() -> list:
+def parser_the_bank() -> any:
     '''Получаем необходимые теги и их значения.'''
     response = get_response(MAIN_URL)
 
@@ -38,7 +41,7 @@ def parser_the_bank() -> list:
 
     result = percent_value + result_value[1::2]
     result.insert(0, FORMAT_TIME)
-    print(result)
+    print(type(result))
 
     return csv_output(result)
 
