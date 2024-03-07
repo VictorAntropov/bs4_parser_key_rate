@@ -41,7 +41,7 @@ def parser_the_bank() -> any:
 
     result = percent_value + result_value[1::2]
     result.insert(0, FORMAT_TIME)
-    print(type(result))
+    print(type(csv_output(result)))
 
     return csv_output(result)
 
