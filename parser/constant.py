@@ -7,7 +7,7 @@ UTF = 'utf-8'
 UNIX = 'unix'
 BASE_DIR = 'bs4_parser_key_rate/parser/results/2024-02-26.csv'
 MAIN_URL = 'https://cbr.ru/'
-LXML = 'lxml'
+CONNECT = 'Проверьте подключение к интернету или проблемы на стороне ЦБ РФ'
 
 
 class HTMLtag:
@@ -16,3 +16,4 @@ class HTMLtag:
     HOME = 'home-main_aside'
     VALUE = 'col-md-2 col-xs-9 _right mono-num'
     MAIN_VALUE = 'main-indicator_value'
+    LXML = 'lxml'

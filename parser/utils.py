@@ -1,10 +1,13 @@
+from constant import CONNECT
+
+import requests
 from requests import RequestException
 
 
-def get_response(session, url):
+def get_response(url):
     try:
-        response = session.get(url)
+        response = requests.get(url)
         response.encoding = 'utf-8'
         return response
     except RequestException as e:
-        print(f'У нас проблемы {e}')
+        print(f'{CONNECT} {e}')
