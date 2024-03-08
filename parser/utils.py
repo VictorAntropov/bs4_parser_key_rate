@@ -1,13 +1,12 @@
 import requests
-from requests import RequestException
-
 from constant import CONNECT, UTF
 
 
-def get_response(url):
+def get_response(url: str):
     try:
         response = requests.get(url)
         response.encoding = UTF
         return response
-    except RequestException as e:
+
+    except requests.RequestException as e:
         print(f'{CONNECT}_{e}')
