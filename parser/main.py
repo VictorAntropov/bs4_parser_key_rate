@@ -5,8 +5,8 @@ from typing import List, Optional
 import telebot
 # import schedule
 from bs4 import BeautifulSoup
-from constant import (BASE_DIR, FORMAT_TIME, MAIN_URL, UNIX, UTF, HTMLtag,
-                      PJ_PARSING)
+from constant import (BASE_DIR, FORMAT_TIME, MAIN_URL, PJ_PARSING, UNIX, UTF,
+                      HTMLtag)
 from settings import chat_id, token
 from utils import configure_logging, get_response
 
@@ -16,7 +16,7 @@ bot = telebot.TeleBot(token=token)
 def csv_output(result_list: List[str]) -> str:
     '''Запись в файл.'''
 
-    dir_file = BASE_DIR / 'results/2024-02-26.csv'
+    dir_file = BASE_DIR / 'results/result_table.csv'
 
     try:
         with open(dir_file, 'a', encoding=UTF) as csvfile:
@@ -33,10 +33,10 @@ def csv_output(result_list: List[str]) -> str:
 
 def parser_the_bank() -> Optional[str]:
     '''Получаем необходимые теги и их значения.'''
-    response = get_response(MAIN_URL)
 
+    response = get_response(MAIN_URL)
     if response is None:
-        logging.error('Пустой ответ, повторите запрос позже!')
+        logging.error('Повторить запрос позже!')
         return None
 
     logging.info('Парсинг ЦБ РФ!')
@@ -65,7 +65,7 @@ def send_telegram_message(file_path: str) -> None:
 
 def main() -> None:
     configure_logging()
-    logging.info('Парсер запущен')
+    logging.info('Парсер запущен!')
     print(parser_the_bank())
     # schedule.every().monday.do(parser_the_bank)
     # while True:

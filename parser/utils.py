@@ -7,7 +7,7 @@ from constant import BASE_DIR, CONNECT, DT_FORMAT, LOG_FORMAT, UTF
 
 def get_response(url: str):
     try:
-        logging.info('Запрос по url!')
+        logging.info('GET-запрос по url!')
         response = requests.get(url)
         response.encoding = UTF
         return response

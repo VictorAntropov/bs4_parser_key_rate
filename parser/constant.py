@@ -1,9 +1,10 @@
 import datetime as dt
 from pathlib import Path
 
+now = dt.datetime.now()
+
 BASE_DIR = Path(__file__).parent
 DATETIME_FORMAT = '%Y-%m-%d'
-now = dt.datetime.now()
 FORMAT_TIME = now.strftime(DATETIME_FORMAT)
 DT_FORMAT = f'{DATETIME_FORMAT} %H:%M:%S'
 LOG_FORMAT = '"%(asctime)s - [%(levelname)s] - %(message)s"'
