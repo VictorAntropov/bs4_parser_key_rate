@@ -14,6 +14,7 @@ bot = telebot.TeleBot(token=token)
 
 def csv_output(result_list: List[str]) -> str:
     '''Запись в файл.'''
+
     dir_file = BASE_DIR / 'results/2024-02-26.csv'
 
     try:
