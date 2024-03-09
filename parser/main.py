@@ -5,7 +5,8 @@ from typing import List, Optional
 import telebot
 # import schedule
 from bs4 import BeautifulSoup
-from constant import BASE_DIR, FORMAT_TIME, MAIN_URL, UNIX, UTF, HTMLtag
+from constant import (BASE_DIR, FORMAT_TIME, MAIN_URL, UNIX, UTF, HTMLtag,
+                      PJ_PARSING)
 from settings import chat_id, token
 from utils import configure_logging, get_response
 
@@ -27,7 +28,7 @@ def csv_output(result_list: List[str]) -> str:
     except FileNotFoundError as e:
         logging.error(f'Файл для записи отсутствует_{e}')
 
-    return 'Парсинг прошел успешно!'
+    return PJ_PARSING
 
 
 def parser_the_bank() -> Optional[str]:

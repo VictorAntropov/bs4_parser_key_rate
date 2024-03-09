@@ -1,7 +1,6 @@
 import datetime as dt
 from pathlib import Path
 
-
 BASE_DIR = Path(__file__).parent
 DATETIME_FORMAT = '%Y-%m-%d'
 now = dt.datetime.now()
@@ -14,6 +13,8 @@ UNIX = 'unix'
 MAIN_URL = 'https://cbr.ru/'
 CONNECT = ('Проверьте подключение к интернету,'
            'также, возможны проблемы на стороне ЦБ РФ.')
+
+PJ_PARSING = 'Парсинг прошел успешно!'
 
 
 class HTMLtag:
