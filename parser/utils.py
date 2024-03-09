@@ -2,10 +2,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 
 import requests
-from constant import BASE_DIR, CONNECT, UTF
-
-DT_FORMAT = '%d.%m.%Y %H:%M:%S'
-LOG_FORMAT = '"%(asctime)s - [%(levelname)s] - %(message)s"'
+from constant import BASE_DIR, CONNECT, DT_FORMAT, LOG_DIR, LOG_FORMAT, UTF
 
 
 def get_response(url: str):
@@ -21,11 +18,13 @@ def get_response(url: str):
 
 def configure_logging():
     '''Конфигурация для логирования.'''
-    log_file = 'bs4_parser_key_rate/parser/logs/parser_key.log'
+    log_dir = BASE_DIR / 'logs'
+    log_dir.mkdir(exist_ok=True)
+    log_file = log_dir / 'parser_key.log'
 
     rotating_handler = RotatingFileHandler(
         log_file, maxBytes=10 ** 6, backupCount=5,
-        encoding='utf-8'
+        encoding=UTF
     )
     logging.basicConfig(
         datefmt=DT_FORMAT,

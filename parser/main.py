@@ -1,6 +1,7 @@
 import csv
 import logging
 from typing import List, Optional
+
 import telebot
 # import schedule
 from bs4 import BeautifulSoup
@@ -13,17 +14,17 @@ bot = telebot.TeleBot(token=token)
 
 def csv_output(result_list: List[str]) -> str:
     '''Запись в файл.'''
-    dir = 'bs4_parser_key_rate/parser/results/2024-02-26.csv'
+    dir_file = BASE_DIR / 'results/2024-02-26.csv'
 
     try:
-        with open(dir, 'a', encoding=UTF) as csvfile:
+        with open(dir_file, 'a', encoding=UTF) as csvfile:
             writer = csv.writer(csvfile, dialect=UNIX)
             writer.writerow(result_list)
             logging.info('Запись в файл завершена!')
 
-        send_telegram_message(dir)
+        send_telegram_message(dir_file)
     except FileNotFoundError as e:
-        logging.error(f'Файл для записи отсутствует{e}')
+        logging.error(f'Файл для записи отсутствует_{e}')
 
     return 'Парсинг прошел успешно!'
 
@@ -36,6 +37,7 @@ def parser_the_bank() -> Optional[str]:
         logging.error('Пустой ответ, повторите запрос позже!')
         return None
 
+    logging.info('Парсинг ЦБ РФ!')
     soup = BeautifulSoup(response.text, features=HTMLtag.LXML)
 
     div_tag = soup.find(HTMLtag.DIV, attrs={HTMLtag.CLASS: HTMLtag.HOME})
