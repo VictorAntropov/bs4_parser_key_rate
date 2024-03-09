@@ -2,7 +2,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 
 import requests
-from constant import BASE_DIR, CONNECT, DT_FORMAT, LOG_DIR, LOG_FORMAT, UTF
+from constant import BASE_DIR, CONNECT, DT_FORMAT, LOG_FORMAT, UTF
 
 
 def get_response(url: str):
