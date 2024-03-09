@@ -5,9 +5,9 @@ now = dt.datetime.now()
 FORMAT_TIME = now.strftime(DATETIME_FORMAT)
 UTF = 'utf-8'
 UNIX = 'unix'
-BASE_DIR = 'bs4_parser_key_rate/parser/results/2024-02-26.csv'
+BASE_DIR = 'bs4_parser_key_rate/parser'
 MAIN_URL = 'https://cbr.ru/'
-CONNECT = 'Проверьте подключение к интернету или проблемы на стороне ЦБ РФ'
+CONNECT = 'Проверьте подключение к интернету, также, возможны проблемы на стороне ЦБ РФ'
 
 
 class HTMLtag:

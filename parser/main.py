@@ -1,38 +1,40 @@
 import csv
-from typing import List
-
+import logging
+from typing import List, Optional
 import telebot
 # import schedule
 from bs4 import BeautifulSoup
 from constant import BASE_DIR, FORMAT_TIME, MAIN_URL, UNIX, UTF, HTMLtag
 from settings import chat_id, token
-from utils import get_response
+from utils import configure_logging, get_response
 
 bot = telebot.TeleBot(token=token)
 
 
 def csv_output(result_list: List[str]) -> str:
     '''Запись в файл.'''
-    dir = BASE_DIR
+    dir = 'bs4_parser_key_rate/parser/results/2024-02-26.csv'
 
     try:
         with open(dir, 'a', encoding=UTF) as csvfile:
             writer = csv.writer(csvfile, dialect=UNIX)
             writer.writerow(result_list)
+            logging.info('Запись в файл завершена!')
 
         send_telegram_message(dir)
     except FileNotFoundError as e:
-        print(f'{e}Файл для записи отсутствует!')
+        logging.error(f'Файл для записи отсутствует{e}')
 
-    return 'Файл отправлен, работа парсера завершена!'
+    return 'Парсинг прошел успешно!'
 
 
-def parser_the_bank() -> str:
+def parser_the_bank() -> Optional[str]:
     '''Получаем необходимые теги и их значения.'''
     response = get_response(MAIN_URL)
 
     if response is None:
-        return
+        logging.error('Пустой ответ, повторите запрос позже!')
+        return None
 
     soup = BeautifulSoup(response.text, features=HTMLtag.LXML)
 
@@ -54,10 +56,12 @@ def send_telegram_message(file_path: str) -> None:
 
     with open(file_path, 'rb') as f:
         bot.send_document(chat_id, f)
+        logging.info('Файл успешно отправлен в ТГ!')
 
 
 def main() -> None:
-    print('Парсер запустился')
+    configure_logging()
+    logging.info('Парсер запущен')
     print(parser_the_bank())
     # schedule.every().monday.do(parser_the_bank)
     # while True:
